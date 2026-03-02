@@ -11,6 +11,7 @@ async function bootstrap() {
       transform: true // 自动转换传入数据类型 (例如 string -> number)
     })
   )
+  app.enableCors()
   await app.listen(process.env.PORT ?? 3000)
 }
 bootstrap()
