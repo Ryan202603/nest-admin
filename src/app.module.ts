@@ -10,11 +10,20 @@ import { RolesModule } from './roles/roles.module'
 import { ApplicationsModule } from './applications/applications.module'
 import { Application, ApprovalRecord } from './applications/entities/application.entity'
 import { Food } from './foods/entities/food.entity'
-import { FoodsModule } from './foods/foods.module';
+import { FoodsModule } from './foods/foods.module'
+
+import { ServeStaticModule } from '@nestjs/serve-static'
+import { join } from 'path'
+import { UploadModule } from './upload/upload.module'
 
 // brew services start postgresql 开启本地服务器
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads'),
+      serveRoot: '/uploads'
+    }),
+    UploadModule,
     TypeOrmModule.forRoot({
       type: 'postgres', // 数据库类型
       host: 'localhost', // 数据库主机名，如果是本地就是 localhost 或 127.0.0.1

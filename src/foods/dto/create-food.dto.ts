@@ -1,45 +1,40 @@
-import { IsString, IsOptional, MaxLength, IsNotEmpty } from 'class-validator';
+import { IsString, IsOptional, MaxLength, IsNotEmpty } from 'class-validator'
 
 export class CreateFoodDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(100)
-  name: string;
+  name: string
 
   @IsString()
   @IsOptional()
   @MaxLength(500)
-  cover?: string;
+  cover?: string
 
   @IsString()
   @IsOptional()
   @MaxLength(500)
-  bgImage?: string;
-
-  @IsString()
-  @IsOptional()
-  @MaxLength(500)
-  desc?: string;
+  desc?: string
 
   @IsString()
   @IsOptional()
   @MaxLength(50)
-  season?: string;
+  season?: string
 
   @IsString()
   @IsOptional()
   @MaxLength(50)
-  category?: string;
+  category?: string
 
   @IsString()
   @IsOptional()
-  nutrition?: string;
+  nutrition?: string
 
   @IsString()
   @IsOptional()
-  tips?: string;
+  tips?: string
 
   @IsString()
   @IsOptional()
-  pairings?: string;
+  pairings?: string
 }
