@@ -1,12 +1,13 @@
-import { Controller, Post, UploadedFile, UseInterceptors, Req } from '@nestjs/common'
+import { Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { diskStorage } from 'multer'
-import { extname, join } from 'path'
-import { Request } from 'express'
+import { extname } from 'path'
+import { SkipTransformUrl } from '../common/decorators/skip-transform-url.decorator'
 
 @Controller('upload')
 export class UploadController {
   @Post('image')
+  @SkipTransformUrl()
   @UseInterceptors(
     FileInterceptor('file', {
       storage: diskStorage({
@@ -21,10 +22,9 @@ export class UploadController {
       })
     })
   )
-  uploadFile(@UploadedFile() file: Express.Multer.File, @Req() req: Request) {
-    const baseUrl = `${req.protocol}://${req.get('host')}`
+  uploadFile(@UploadedFile() file: Express.Multer.File) {
     return {
-      data: `${baseUrl}/uploads/images/${file.filename}`
+      data: `/uploads/images/${file.filename}`
     }
   }
 }

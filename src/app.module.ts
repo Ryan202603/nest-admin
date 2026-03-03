@@ -15,6 +15,8 @@ import { FoodsModule } from './foods/foods.module'
 import { ServeStaticModule } from '@nestjs/serve-static'
 import { join } from 'path'
 import { UploadModule } from './upload/upload.module'
+import { APP_INTERCEPTOR } from '@nestjs/core'
+import { TransformUrlInterceptor } from './common/interceptors/transform-url.interceptor'
 
 // brew services start postgresql 开启本地服务器
 @Module({
@@ -46,6 +48,12 @@ import { UploadModule } from './upload/upload.module'
     RolesModule,
     ApplicationsModule,
     FoodsModule
+  ],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: TransformUrlInterceptor
+    }
   ]
 })
 export class AppModule {}
