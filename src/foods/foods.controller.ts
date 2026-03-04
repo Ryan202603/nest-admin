@@ -22,6 +22,18 @@ export class FoodsController {
   }
 
   @Public()
+  @Get('recommend')
+  findRecommend(@Query() query: any) {
+    return this.foodsService.findRecommend(query)
+  }
+
+  @Public()
+  @Get('hot')
+  findHot(@Query() query: any) {
+    return this.foodsService.findHot(query)
+  }
+
+  @Public()
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.foodsService.findOne(+id)

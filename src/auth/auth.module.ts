@@ -12,7 +12,7 @@ import { JwtStrategy } from './strategies/jwt.strategy'
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '60000s' } // Token 有效期
+      signOptions: { expiresIn: '30d' } // Token 有效期
     })
   ],
   providers: [AuthService, JwtStrategy],
