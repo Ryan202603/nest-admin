@@ -53,14 +53,20 @@ export class FoodsService {
     const pageSize = parseInt(query.query?.pageSize || query.pageSize, 10) || 10
     const season = this.getCurrentSeason()
 
-    const [data, total] = await this.foodRepository.findAndCount({
-      where: { season },
-      take: pageSize,
-      skip: (pageNum - 1) * pageSize,
-      order: {
-        createdAt: 'DESC'
-      }
-    })
+    const queryBuilder = this.foodRepository.createQueryBuilder('food')
+
+    queryBuilder.where('food.season IN (:...seasons)', { seasons: [season, '四季'] })
+
+    queryBuilder.addSelect(`CASE WHEN food.season = :season THEN 0 ELSE 1 END`, 'rank')
+
+    queryBuilder.orderBy('rank', 'ASC')
+    queryBuilder.addOrderBy('food.createdAt', 'DESC')
+    queryBuilder.setParameter('season', season)
+
+    queryBuilder.skip((pageNum - 1) * pageSize)
+    queryBuilder.take(pageSize)
+
+    const [data, total] = await queryBuilder.getManyAndCount()
 
     return {
       data,
