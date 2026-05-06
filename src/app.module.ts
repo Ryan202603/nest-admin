@@ -20,7 +20,7 @@ import { TransformUrlInterceptor } from './common/interceptors/transform-url.int
 import { ResponseInterceptor } from './common/interceptors/response.interceptor'
 import { AllExceptionsFilter } from './common/filters/all-exceptions.filter'
 
-// brew services start postgresql 开启本地服务器
+// brew services start postgresql@18 开启本地服务器
 @Module({
   imports: [
     ServeStaticModule.forRoot({

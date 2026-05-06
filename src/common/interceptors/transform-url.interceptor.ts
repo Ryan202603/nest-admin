@@ -1,6 +1,6 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
-import { Request } from 'express'
+import { FastifyRequest } from 'fastify'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { SKIP_TRANSFORM_URL } from '../decorators/skip-transform-url.decorator'
@@ -15,8 +15,8 @@ export class TransformUrlInterceptor implements NestInterceptor {
       return next.handle()
     }
 
-    const request = context.switchToHttp().getRequest<Request>()
-    const baseUrl = `${request.protocol}://${request.get('host')}`
+    const request = context.switchToHttp().getRequest<FastifyRequest>()
+    const baseUrl = `${request.protocol}://${request.headers.host}`
 
     return next.handle().pipe(map(data => this.transformUrls(data, baseUrl)))
   }
