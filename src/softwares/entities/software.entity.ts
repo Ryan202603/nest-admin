@@ -12,11 +12,11 @@ export class Software {
   version: string
 
   @Column('text', { comment: '功能描述', nullable: true })
-  features: string
+  features?: string
 
   @Column({ length: 255, comment: '测试机型', nullable: true })
-  testDevice: string
+  testDevice?: string
 
   @Column({ length: 255, comment: '测试系统', nullable: true })
-  testSystem: string
+  testSystem?: string
 }
